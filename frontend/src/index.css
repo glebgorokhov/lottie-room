@@ -1,3 +1,93 @@
+@import "@fontsource/karla";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  /* Neutral */
+  .theme-neutral {
+    --color-bg: 11 13 7;
+    --color-text: 255 255 255;
+    --color-text-light: 168 171 163;
+    --color-border: 72 75 67;
+
+    @media (prefers-color-scheme: dark) {
+      --color-bg: 0 0 0;
+    }
+  }
+
+  .theme-neutral-tint {
+    --color-bg: 34 35 31;
+    --color-text: 255 255 255;
+    --color-text-light: 170 174 162;
+    --color-border: 83 86 78;
+  }
+
+  /* Neutral Light */
+  .theme-neutral-light {
+    --color-bg: 255 255 255;
+    --color-text: 32 39 44;
+    --color-text-light: 76 88 99;
+    --color-border: 217 224 230;
+  }
+
+  .theme-neutral-light-tint {
+    --color-bg: 250 252 253;
+    --color-text: 32 39 44;
+    --color-text-light: 76 88 99;
+    --color-border: 217 224 230;
+  }
+
+  /* Error */
+  .theme-error {
+    --color-bg: 212 65 33;
+    --color-text: 255 255 255;
+    --color-text-light: 255 227 220;
+    --color-border: 245 151 130;
+  }
+
+  .theme-error-tint {
+    --color-bg: 181 54 26;
+    --color-text: 255 255 255;
+    --color-text-light: 245 217 210;
+    --color-border: 229 141 122;
+  }
+
+  /* Success */
+  .theme-success {
+    --color-bg: 90 161 56;
+    --color-text: 255 255 255;
+    --color-text-light: 233 255 223;
+    --color-border: 193 221 180;
+  }
+
+  .theme-success-tint {
+    --color-bg: 71 140 38;
+    --color-text: 255 255 255;
+    --color-text-light: 206 236 192;
+    --color-border: 141 194 116;
+  }
+
+  /* Brand */
+  .theme-brand {
+    --color-bg: 0 221 179;
+    --color-text: 255 255 255;
+    --color-text-light: 255 255 255;
+    --color-border: 255 255 255;
+  }
+
+  .bb {
+    --block-background: var(--color-bg);
+  }
+
+  .heading {
+    @apply font-semibold tracking-tight;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    * {
+      color-scheme: dark;
+    }
+  }
+}

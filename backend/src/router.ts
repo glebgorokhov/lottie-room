@@ -1,6 +1,12 @@
 import { FastifyInstance } from "fastify";
-import userController from "./controller/userController";
+import featuredAnimationsController from "./controller/featuredAnimationsController";
+
+function getPrefixedRoute(url: string, version = 1) {
+  return `/api/v${version}/${url}`;
+}
 
 export default async function router(fastify: FastifyInstance) {
-  fastify.register(userController, { prefix: "/api/v1/user" });
+  fastify.register(featuredAnimationsController, {
+    prefix: getPrefixedRoute("featuredAnimations"),
+  });
 }
