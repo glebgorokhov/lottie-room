@@ -134,7 +134,7 @@ export default function Button({
         },
       ],
     }),
-    [themeClass, roundedClass, outline, size, loading, className]
+    [themeClass, roundedClass, outline, size, loading, className, block]
   );
 
   const [PreIcon, PostIcon] = useMemo(

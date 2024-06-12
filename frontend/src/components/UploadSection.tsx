@@ -5,7 +5,7 @@ export default function UploadSection() {
     <div className="">
       <div>
         <h1 className="text-8xl font-semibold text-t-text">
-          Free playground for your animations
+          Free Playground for Your Animations
         </h1>
         <p className="text-xl mt-5">
           Upload your JSON file, play with settings and discuss the changes with

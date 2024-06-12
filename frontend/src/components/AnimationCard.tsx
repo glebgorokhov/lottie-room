@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { FeaturedAnimation } from "../../../types/featuredAnimations.ts";
 import { getFullName } from "../utils/fullName.ts";
+import LottiePreviewByUrl from "./LottiePreviewByUrl.tsx";
 
 type AnimationCardProps = {
   animation: FeaturedAnimation;
@@ -14,8 +15,7 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
     card: "text-t-text-light rounded-2xl group",
     imageWrapper:
       "block pb-[100%] relative h-0 border border-t-border rounded-[0.875rem] overflow-hidden theme-neutral-light bg-t-bg transition-[border-color] group-hover:border-t-text",
-    image:
-      "absolute inset-0 m-auto max-w-full max-h-full object-contain rounded-xl",
+    image: "absolute inset-px",
     noImage: "w-10 h-10 m-auto inset-0 absolute opacity-50",
     content: "mt-2.5",
     name: "block text-base group-hover:text-t-text transition-colors",
@@ -30,12 +30,8 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
   return (
     <div className={clsx(style.card)}>
       <Link to={`/lottie/${animation.id}`} className={style.imageWrapper}>
-        {animation.gifUrl ? (
-          <img
-            src={animation.gifUrl}
-            className={style.image}
-            alt={animation.name}
-          />
+        {animation.jsonUrl ? (
+          <LottiePreviewByUrl url={animation.jsonUrl} className={style.image} />
         ) : (
           <Icon icon="carbon:no-image" className={style.noImage} />
         )}

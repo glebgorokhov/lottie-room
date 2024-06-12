@@ -20,7 +20,7 @@ export default function MainPage() {
   });
 
   const style = {
-    grid: "grid grid-cols-4 gap-6 mt-8",
+    grid: "grid grid-cols-4 gap-6 mt-6",
   };
 
   return (
@@ -30,7 +30,7 @@ export default function MainPage() {
         <UploadSection />
 
         <div className="mt-16">
-          <h1 className="heading text-5xl font-bold text-t-text">
+          <h1 className="heading text-4xl font-bold text-t-text">
             Featured animations
           </h1>
         </div>
