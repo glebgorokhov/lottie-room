@@ -77,6 +77,13 @@
     --color-border: 255 255 255;
   }
 
+  .theme-brand-tint {
+    --color-bg: 0 157 145;
+    --color-text: 255 255 255;
+    --color-text-light: 255 255 255;
+    --color-border: 255 255 255;
+  }
+
   .bb {
     --block-background: var(--color-bg);
   }

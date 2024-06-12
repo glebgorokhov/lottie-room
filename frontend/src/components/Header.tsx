@@ -8,7 +8,6 @@ export default function Header() {
         <div>
           <Logo className="h-7 text-t-text" />
         </div>
-        <div>Menu</div>
       </Container>
     </header>
   );
