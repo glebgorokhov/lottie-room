@@ -10,14 +10,14 @@ const { gql } = require("@apollo/client");
 export default async function featuredAnimationsController(
   fastify: FastifyInstance,
 ) {
-  // GET /api/v1/featuredAnimations
   fastify.get(
     "/",
-    async function (_request: FastifyRequest, reply: FastifyReply) {
+    async function (request: FastifyRequest, reply: FastifyReply) {
+      const { cursor } = request.query as Record<string, string>;
       const { data } = await client.query({
         query: gql`
           {
-            featuredPublicAnimations(first: 12) {
+            featuredPublicAnimations(first: 12, after: ${cursor ? `"${cursor}"` : null}) {
               edges {
                 cursor
                 node {
@@ -27,6 +27,7 @@ export default async function featuredAnimationsController(
                   likesCount
                   lottieUrl
                   url
+                  jsonUrl
                   createdBy {
                     username
                     avatarUrl
@@ -40,36 +41,45 @@ export default async function featuredAnimationsController(
         `,
       });
 
-      const mappedData: FeaturedAnimationsListResponseData = {
-        animations: data.featuredPublicAnimations.edges.map(
-          (edge: { node: FeaturedAnimation }) => {
-            const {
-              id,
-              gifUrl,
-              name,
-              likesCount,
-              url,
-              lottieUrl,
-              createdBy: { username, avatarUrl, firstName, lastName },
-            } = edge.node;
+      const edges = data.featuredPublicAnimations.edges as {
+        node: FeaturedAnimation;
+        cursor: string;
+      }[];
 
-            return {
-              id,
-              gifUrl,
-              name,
-              likesCount,
-              url,
-              lottieUrl,
-              createdBy: {
-                username,
-                avatarUrl,
-                firstName,
-                lastName,
-              },
-            };
-          },
-        ),
+      const mappedData: FeaturedAnimationsListResponseData = {
+        nextCursor: edges[edges.length - 1].cursor,
+        animations: edges.map((edge) => {
+          const {
+            id,
+            gifUrl,
+            name,
+            likesCount,
+            url,
+            lottieUrl,
+            jsonUrl,
+            createdBy: { username, avatarUrl, firstName, lastName },
+          } = edge.node;
+
+          return {
+            id,
+            cursor,
+            gifUrl,
+            name,
+            likesCount,
+            url,
+            lottieUrl,
+            jsonUrl,
+            createdBy: {
+              username,
+              avatarUrl,
+              firstName,
+              lastName,
+            },
+          };
+        }),
       };
+
+      request.log.info(mappedData.nextCursor);
 
       reply.send(mappedData);
     },

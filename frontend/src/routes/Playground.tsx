@@ -1,23 +1,59 @@
 import { Icon } from "@iconify/react";
+import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import Lottie from "lottie-react";
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Link, useParams } from "react-router-dom";
 
-import Button from "../components/Button.tsx";
+import type { Playground as PlaygroundData } from "../../../types/playground.ts";
+import ChatComponent from "../components/Chat.tsx";
 import Logo from "../components/icons/Logo.tsx";
+import LoadingScreen from "../components/LoadingScreen.tsx";
 import Layers from "../components/playground/Layers.tsx";
-import mockPlaygroundData from "../mocks/mockPlaygroundData.ts";
+import ErrorPage from "../ErrorPage.tsx";
+import useAPI from "../hooks/useAPI.ts";
 
-export default function Playground() {
-  const originalJSON = mockPlaygroundData.json;
-  const [json, setJson] = useState({ ...originalJSON });
+export default function PlaygroundLoader() {
+  const { playgroundId } = useParams();
+  const { getPlaygroundById } = useAPI();
+
+  const { data, isFetched, error } = useQuery({
+    queryKey: [playgroundId],
+    queryFn: () => (playgroundId ? getPlaygroundById(playgroundId) : undefined),
+    retry: false,
+  });
+
+  if (!playgroundId) {
+    return <ErrorPage />;
+  }
+
+  if (!isFetched) {
+    return <LoadingScreen />;
+  }
+
+  console.log(error);
+
+  if (!data || error) {
+    return <ErrorPage />;
+  }
+
+  return <Playground playgroundData={data} />;
+}
+
+export function Playground({
+  playgroundData,
+}: {
+  playgroundData: PlaygroundData;
+}) {
+  const originalJSON = JSON.parse(playgroundData.json);
   const [scale, setScale] = useState(100);
   const [speed, setSpeed] = useState(originalJSON.fr);
+  const [copied, setCopied] = useState(false);
 
   const style = {
     col: "flex flex-col p-3 gap-3 flex-1 overflow-hidden",
-    card: "theme-neutral-light bg-t-bg text-t-text-light border border-t-border rounded-2xl overflow-auto shadow-sm",
+    card: "theme-neutral-light flex flex-col bg-t-bg text-t-text-light border border-t-border rounded-2xl overflow-auto relative shadow-sm",
     cardTitle:
       "text-t-text text-lg border-b border-t-border px-4 py-2.5 heading sticky top-0 bg-t-bg",
     cardContent: "p-4 w-full",
@@ -45,8 +81,8 @@ export default function Playground() {
     // ######
     const newH = newJSON.h / (scale / 100);
     const newW = newJSON.w / (scale / 100);
-    const hDiff = newH - newJSON.h;
-    const wDiff = newW - newJSON.w;
+    // const hDiff = newH - newJSON.h;
+    // const wDiff = newW - newJSON.w;
 
     newJSON.h = newH;
     newJSON.w = newW;
@@ -93,30 +129,42 @@ export default function Playground() {
     <>
       <div className="overflow-hidden h-screen grid grid-cols-[18rem,1fr,18rem]">
         <div className={style.col}>
-          <div className={style.card}>
+          <div className={clsx(style.card, "shrink-0")}>
             <div className={style.cardContent}>
               <Logo className="h-6 text-t-text" />
+              {/* Back */}
               <Link
                 to="/"
-                className="flex items-center gap-1.5 mt-2 transition-colors hover:text-t-text"
+                className="flex items-center gap-1.5 mt-2.5 transition-colors hover:text-t-text"
               >
                 <Icon icon="tabler:arrow-left" className="w-4 h-4" />
                 <span>Back to Main Page</span>
               </Link>
-              <Button
-                type="button"
-                title="Upload JSON File"
-                roundedClass="rounded-xl"
-                className="mt-3"
-                themeClass="theme-brand-tint hover:theme-brand"
-                preIcon="ri:upload-line"
-                block
-              />
+              {/* Copy */}
+              <CopyToClipboard
+                text={location.href}
+                onCopy={() => setCopied(true)}
+                className={clsx(
+                  "flex items-center gap-1.5 mt-1 -mb-1 transition-[color] cursor-pointer",
+                  {
+                    "theme-success text-t-bg hover:theme-success-tint": copied,
+                    "hover:text-t-text": !copied,
+                  }
+                )}
+              >
+                <div>
+                  <Icon
+                    icon={copied ? "ri:check-line" : "ri:link"}
+                    className="w-4 h-4"
+                  />
+                  <span>{copied ? "Link copied!" : "Copy link"}</span>
+                </div>
+              </CopyToClipboard>
             </div>
           </div>
           <div className={clsx(style.card, "flex-1")}>
             <div className={style.cardTitle}>Layers</div>
-            <Layers layers={[json]} />
+            <Layers layers={[originalJSON]} />
           </div>
         </div>
 
@@ -133,7 +181,7 @@ export default function Playground() {
 
         <div className={style.col}>
           {/* Settings */}
-          <div className={style.card}>
+          <div className={clsx(style.card, "shrink-0")}>
             <div className={style.cardTitle}>Settings</div>
             <div className={style.cardContent}>
               <div>
@@ -174,7 +222,7 @@ export default function Playground() {
           {/* Discussion */}
           <div className={clsx(style.card, "flex-grow")}>
             <div className={style.cardTitle}>Discussion</div>
-            <div className={style.cardContent}>Messages will be there</div>
+            <ChatComponent initialMessages={playgroundData.Message} />
           </div>
         </div>
       </div>

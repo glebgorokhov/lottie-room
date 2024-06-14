@@ -41,5 +41,6 @@ module.exports = {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };

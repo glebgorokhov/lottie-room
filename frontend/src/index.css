@@ -11,10 +11,6 @@
     --color-text: 255 255 255;
     --color-text-light: 168 171 163;
     --color-border: 72 75 67;
-
-    @media (prefers-color-scheme: dark) {
-      --color-bg: 0 0 0;
-    }
   }
 
   .theme-neutral-tint {
@@ -92,9 +88,11 @@
     @apply font-semibold tracking-tight;
   }
 
+  /*
   @media (prefers-color-scheme: dark) {
     * {
       color-scheme: dark;
     }
   }
+  */
 }

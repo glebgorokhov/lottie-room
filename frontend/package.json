@@ -13,11 +13,15 @@
     "@fontsource/karla": "^5.0.20",
     "@iconify/react": "^5.0.1",
     "@tanstack/react-query": "^5.40.1",
+    "@types/websocket": "^1.0.10",
     "clsx": "^2.1.1",
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "react-use-websocket": "^4.8.1",
+    "websocket": "^1.0.35"
   },
   "devDependencies": {
     "@lottiefiles/lottie-types": "^1.5.0",

@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Fragment } from "react";
 
 import AnimationCard from "../components/AnimationCard.tsx";
 import Button from "../components/Button.tsx";
@@ -11,12 +12,11 @@ import useAPI from "../hooks/useAPI.ts";
 export default function MainPage() {
   const { getFeaturedAnimations } = useAPI();
 
-  const { data } = useQuery({
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["featuredAnimations"],
     queryFn: getFeaturedAnimations,
-    initialData: {
-      animations: [],
-    },
+    initialPageParam: "",
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
   const style = {
@@ -35,8 +35,12 @@ export default function MainPage() {
           </h1>
         </div>
         <div className={style.grid}>
-          {data.animations.map((animation) => (
-            <AnimationCard key={animation.id} animation={animation} />
+          {data?.pages.map((page, index) => (
+            <Fragment key={index}>
+              {page.animations.map((animation) => (
+                <AnimationCard key={animation.id} animation={animation} />
+              ))}
+            </Fragment>
           ))}
         </div>
 
@@ -46,6 +50,9 @@ export default function MainPage() {
             themeClass="theme-brand-tint hover:theme-brand"
             preIcon="ri:refresh-line"
             roundedClass="rounded-xl"
+            onClick={fetchNextPage}
+            loading={isFetchingNextPage}
+            type="button"
           />
         </div>
       </Container>
