@@ -159,7 +159,12 @@ export function Playground() {
         <div className={style.col}>
           {/* Layer properties */}
           {selectedLayers.length === 1 && (
-            <div className={clsx(style.card, "shrink-0")}>
+            <div
+              className={clsx(
+                style.card,
+                "shrink-0 max-h-[50vh] overflow-auto"
+              )}
+            >
               <div className={style.cardTitle}>Selected layer</div>
               <div className={style.cardContent}>
                 <LayerActions layerKey={selectedLayers[0]} />
@@ -169,7 +174,12 @@ export function Playground() {
 
           {/* Multiple selection */}
           {selectedLayers.length > 1 && (
-            <div className={clsx(style.card, "shrink-0")}>
+            <div
+              className={clsx(
+                style.card,
+                "shrink-0 max-h-[50vh] overflow-auto"
+              )}
+            >
               <div className={style.cardTitle}>
                 Selected layers ({selectedLayers.length})
               </div>

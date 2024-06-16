@@ -45,7 +45,7 @@ export default function ScaleEditor({ path }: ScaleEditorProps) {
             }
             min={0}
             max={300}
-            className="w-full -mt-px block relative"
+            className="w-full -mt-0.5 block relative"
           />
         </div>
       ))}
