@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import type { Layer } from "@lottiefiles/lottie-types";
 import clsx from "clsx";
+import { useEffect, useReducer } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import useShift from "../../hooks/useShift.tsx";
@@ -126,6 +127,12 @@ export default function Layers({
   level = 0,
   className,
 }: LayersProps) {
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  useEffect(() => {
+    forceUpdate();
+  }, []);
+
   return (
     <div className={className}>
       {layers.map((layer, index) => (

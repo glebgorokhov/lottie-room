@@ -35,31 +35,44 @@ export default function MainPage() {
             Featured animations
           </h1>
         </div>
+
         <div className={style.grid}>
+          {/* Loading */}
           {!isFetched &&
             Array(12)
               .fill(null)
               .map((_n, i) => <AnimationCard animation={null} key={i} />)}
-          {data?.pages.map((page, index) => (
-            <Fragment key={index}>
-              {page.animations.map((animation) => (
-                <AnimationCard key={animation.id} animation={animation} />
-              ))}
-            </Fragment>
-          ))}
+
+          {/* Loading finished */}
+          {data ? (
+            data?.pages.map((page, index) => (
+              <Fragment key={index}>
+                {page.animations.map((animation) => (
+                  <AnimationCard key={animation.id} animation={animation} />
+                ))}
+              </Fragment>
+            ))
+          ) : (
+            <div className="rounded-2xl col-span-4 p-6 text-center text-base border border-t-border">
+              Sorry, we couldn&apos;t fetch featured animations.
+            </div>
+          )}
         </div>
 
-        <div className="flex justify-center mt-12">
-          <Button
-            title="Show more"
-            themeClass="theme-brand-tint hover:theme-brand"
-            preIcon="ri:refresh-line"
-            roundedClass="rounded-xl"
-            onClick={fetchNextPage}
-            loading={isFetchingNextPage}
-            type="button"
-          />
-        </div>
+        {/* Show more */}
+        {!!data && (
+          <div className="flex justify-center mt-12">
+            <Button
+              title="Show more"
+              themeClass="theme-brand-tint hover:theme-brand"
+              preIcon="ri:refresh-line"
+              roundedClass="rounded-xl"
+              onClick={fetchNextPage}
+              loading={isFetchingNextPage}
+              type="button"
+            />
+          </div>
+        )}
       </Container>
       <Footer />
     </>
