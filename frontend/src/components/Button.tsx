@@ -102,7 +102,7 @@ export default function Button({
           "opacity-30 scale-80": loading,
         },
       ],
-      icon: "shrink-0 first:-ml-1 last:-mr-1 transition-[color,transform]",
+      icon: "shrink-0 first:-ml-1 last:-mr-1 transition-[transform]",
       loaderIcon: "w-6 h-6",
       loader: [
         "absolute left-0 top-0 right-0 bottom-0 flex items-center justify-center pointer-events-none transition-[opacity,transform] animate-spin",

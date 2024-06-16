@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { RgbaColorPicker } from "react-colorful";
 import { useShallow } from "zustand/react/shallow";
 
+import useSocketActions from "../../hooks/useSocketActions.tsx";
 import usePlaygroundStore from "../../stores/playgroundStore.ts";
 import { lottieColorToRgba, rgbaToLottieColor } from "../../utils/colors.ts";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover.tsx";
@@ -14,10 +15,11 @@ type ColorEditorProps = {
 };
 
 export default function ColorEditor({ color, colorPath }: ColorEditorProps) {
-  const { updateProp, json } = usePlaygroundStore(
-    useShallow(({ json, updateProp }) => ({
+  const { updateProp } = useSocketActions();
+
+  const { json } = usePlaygroundStore(
+    useShallow(({ json }) => ({
       json,
-      updateProp,
     }))
   );
 

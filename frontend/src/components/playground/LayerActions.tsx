@@ -3,6 +3,7 @@ import { get } from "radash";
 import { useMemo } from "react";
 import { useShallow } from "zustand/react/shallow";
 
+import useSocketActions from "../../hooks/useSocketActions.tsx";
 import usePlaygroundStore from "../../stores/playgroundStore.ts";
 import { extractColorsFromLayer } from "../../utils/extractColors.ts";
 import Button from "../Button.tsx";
@@ -19,9 +20,10 @@ export default function LayerActions({ layerKey }: LayerActionsProps) {
     Number(layerKey.split(".").slice(-1)[0]),
   ];
 
-  const { deleteArrayItem, selectLayer, json } = usePlaygroundStore(
-    useShallow(({ deleteArrayItem, selectedLayers, selectLayer, json }) => ({
-      deleteArrayItem,
+  const { deleteArrayItem } = useSocketActions();
+
+  const { selectLayer, json } = usePlaygroundStore(
+    useShallow(({ selectedLayers, selectLayer, json }) => ({
       selectedLayers,
       selectLayer,
       json,

@@ -1,19 +1,17 @@
 import { useShallow } from "zustand/react/shallow";
 
+import useSocketActions from "../../hooks/useSocketActions.tsx";
 import usePlaygroundStore from "../../stores/playgroundStore.ts";
 import Button from "../Button.tsx";
 
 export default function MultipleLayerActions() {
-  const { deleteArrayItem, selectedLayers, clearSelectedLayers } =
-    usePlaygroundStore(
-      useShallow(
-        ({ deleteArrayItem, selectedLayers, clearSelectedLayers }) => ({
-          deleteArrayItem,
-          selectedLayers,
-          clearSelectedLayers,
-        })
-      )
-    );
+  const { deleteArrayItem } = useSocketActions();
+  const { selectedLayers, clearSelectedLayers } = usePlaygroundStore(
+    useShallow(({ selectedLayers, clearSelectedLayers }) => ({
+      selectedLayers,
+      clearSelectedLayers,
+    }))
+  );
 
   function deleteLayers() {
     // Group indexes by path and sort indexes to avoid mistakes when removing

@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useShallow } from "zustand/react/shallow";
 
 import useShift from "../../hooks/useShift.tsx";
+import useSocketActions from "../../hooks/useSocketActions.tsx";
 import usePlaygroundStore from "../../stores/playgroundStore.ts";
 
 export type LayerType = Layer.Value & {
@@ -49,22 +50,14 @@ function SquareButton({ icon, onClick, className }: SquareButtonProps) {
 function Layer({ layer, index, path, level }: LayerProps) {
   const layerKey = `${path}.${index}`;
   const shiftUsed = useShift();
-
-  const { deleteArrayItem, selectLayer, selectedLayers, clearSelectedLayers } =
+  const { deleteArrayItem } = useSocketActions();
+  const { selectLayer, selectedLayers, clearSelectedLayers } =
     usePlaygroundStore(
-      useShallow(
-        ({
-          deleteArrayItem,
-          selectLayer,
-          selectedLayers,
-          clearSelectedLayers,
-        }) => ({
-          deleteArrayItem,
-          selectLayer,
-          selectedLayers,
-          clearSelectedLayers,
-        })
-      )
+      useShallow(({ selectLayer, selectedLayers, clearSelectedLayers }) => ({
+        selectLayer,
+        selectedLayers,
+        clearSelectedLayers,
+      }))
     );
 
   function deleteLayer() {

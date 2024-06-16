@@ -1,43 +1,28 @@
 import clsx from "clsx";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import useWebSocket, { ReadyState } from "react-use-websocket";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
+import { ReadyState } from "react-use-websocket";
 import { useShallow } from "zustand/react/shallow";
 
-import type { Message } from "../../../../types/messages.ts";
+import { socketContext } from "../../routes/Playground.tsx";
 import usePlaygroundStore from "../../stores/playgroundStore.ts";
 import Button from "../Button.tsx";
 
 const ChatComponent = () => {
-  const { playgroundId } = useParams();
-  const initialMessages = usePlaygroundStore(
-    useShallow(({ messages }) => messages)
-  );
+  const socket = useContext(socketContext)!;
 
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const messages = usePlaygroundStore(useShallow(({ messages }) => messages));
+
   const [input, setInput] = useState("");
   const [username, setUsername] = useState("");
   const messagesContainer = useRef<HTMLDivElement | null>(null);
 
-  const {
-    sendMessage: socketSendMessage,
-    lastMessage: socketLastMessage,
-    readyState: socketReadyState,
-  } = useWebSocket(`ws://localhost:3006/api/v1/playground/${playgroundId}/ws`);
-
-  useEffect(() => {
-    if (socketLastMessage !== null) {
-      const data = JSON.parse(socketLastMessage.data);
-      if (data.type === "message") {
-        setMessages((prevMessages) => [...prevMessages, data]);
-      }
-    }
-  }, [socketLastMessage]);
+  const { sendMessage: socketSendMessage, readyState: socketReadyState } =
+    socket || {};
 
   const sendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const message = { type: "message", username, text: input };
-    socketSendMessage(JSON.stringify(message));
+    socketSendMessage?.(JSON.stringify(message));
     setInput("");
   };
 
@@ -54,7 +39,7 @@ const ChatComponent = () => {
     [ReadyState.CLOSING]: "Closing",
     [ReadyState.CLOSED]: "Closed",
     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-  }[socketReadyState];
+  }[socketReadyState || ReadyState.CLOSED];
 
   const themeByStatus = {
     [ReadyState.CONNECTING]: "bg-blue-500 text-white",
@@ -62,7 +47,7 @@ const ChatComponent = () => {
     [ReadyState.CLOSING]: "theme-error bg-t-bg text-t-text",
     [ReadyState.CLOSED]: "theme-error bg-t-bg text-t-text",
     [ReadyState.UNINSTANTIATED]: "bg-gray-500 text-white",
-  }[socketReadyState];
+  }[socketReadyState || ReadyState.CLOSED];
 
   const style = {
     form: "space-y-2.5 p-3 border-t border-t-border",
