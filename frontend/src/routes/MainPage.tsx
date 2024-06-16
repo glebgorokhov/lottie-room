@@ -12,12 +12,13 @@ import useAPI from "../hooks/useAPI.ts";
 export default function MainPage() {
   const { getFeaturedAnimations } = useAPI();
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ["featuredAnimations"],
-    queryFn: getFeaturedAnimations,
-    initialPageParam: "",
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  const { data, fetchNextPage, isFetchingNextPage, isFetched } =
+    useInfiniteQuery({
+      queryKey: ["featuredAnimations"],
+      queryFn: getFeaturedAnimations,
+      initialPageParam: "",
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    });
 
   const style = {
     grid: "grid grid-cols-4 gap-6 mt-6",
@@ -35,6 +36,10 @@ export default function MainPage() {
           </h1>
         </div>
         <div className={style.grid}>
+          {!isFetched &&
+            Array(12)
+              .fill(null)
+              .map((_n, i) => <AnimationCard animation={null} key={i} />)}
           {data?.pages.map((page, index) => (
             <Fragment key={index}>
               {page.animations.map((animation) => (

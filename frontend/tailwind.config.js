@@ -16,6 +16,15 @@ export default {
       fontFamily: {
         sans: ["Karla", "sans-serif"],
       },
+      keyframes: {
+        skeleton: {
+          "0%": { transform: "translate3d(-100%, 0, 0)" },
+          "100%": { transform: "translate3d(100%, 0, 0)" },
+        },
+      },
+      animation: {
+        skeleton: "skeleton 1.5s ease infinite",
+      },
     },
   },
   plugins: [

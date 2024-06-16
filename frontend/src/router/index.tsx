@@ -1,9 +1,10 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "../ErrorPage.tsx";
-import MainPage from "../routes/MainPage.tsx";
-import PlaygroundLoader from "../routes/Playground.tsx";
-import Root from "../routes/Root.tsx";
+const MainPage = lazy(() => import("../routes/MainPage.tsx"));
+const PlaygroundLoader = lazy(() => import("../routes/Playground.tsx"));
+const Root = lazy(() => import("../routes/Root.tsx"));
 
 const router = createBrowserRouter([
   {

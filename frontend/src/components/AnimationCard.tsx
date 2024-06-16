@@ -8,9 +8,11 @@ import useAPI from "../hooks/useAPI.ts";
 import { FeaturedAnimation } from "../types";
 import { getFullName } from "../utils/fullName.ts";
 import LottiePreviewByUrl from "./LottiePreviewByUrl.tsx";
+import Skeleton from "./Skeleton.tsx";
+import SkeletonText from "./SkeletonText.tsx";
 
 type AnimationCardProps = {
-  animation: FeaturedAnimation;
+  animation: FeaturedAnimation | null;
 };
 
 export default function AnimationCard({ animation }: AnimationCardProps) {
@@ -20,6 +22,10 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
   const { mutateAsync: openPlayground, isPending: playgroundIsOpening } =
     useMutation({
       mutationFn: async () => {
+        if (!animation) {
+          return;
+        }
+
         const response = await fetch(animation.jsonUrl);
         const animationJSON = (await response.json()) as Animation;
         const playgroundUrl = await openPlaygroundForData(animationJSON);
@@ -37,7 +43,7 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
     image: "absolute inset-px",
     noImage: "w-10 h-10 m-auto inset-0 absolute opacity-50",
     content: "mt-2.5",
-    name: "block text-base group-hover:text-t-text transition-colors",
+    name: "block text-base group-hover:text-t-text transition-colors flex-1",
     author:
       "flex items-center gap-2 text-sm mt-1.5 flex-1 overflow-hidden transition-colors hover:text-t-text",
     avatar: "w-4 h-4 rounded-full shrink-0",
@@ -50,6 +56,7 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
     <div
       className={clsx(style.card, {
         "opacity-50 pointer-events-none": playgroundIsOpening,
+        "pointer-events-none": !animation,
       })}
     >
       <button
@@ -57,7 +64,9 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
         className={style.imageWrapper}
         onClick={() => openPlayground()}
       >
-        {animation.jsonUrl ? (
+        {!animation ? (
+          <Skeleton fill />
+        ) : animation.jsonUrl ? (
           <LottiePreviewByUrl url={animation.jsonUrl} className={style.image} />
         ) : (
           <Icon icon="carbon:no-image" className={style.noImage} />
@@ -65,29 +74,53 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
       </button>
       <div className={style.content}>
         <div className="flex items-start justify-between gap-4">
-          <Link to={`/lottie/${animation.id}`} className={style.name}>
-            {animation.name}
+          <Link to={`/lottie/${animation?.id}`} className={style.name}>
+            {animation ? (
+              animation.name
+            ) : (
+              <div className="w-full">
+                <SkeletonText lines={2} />
+              </div>
+            )}
           </Link>
           <div className={style.likes}>
             <Icon icon="ri:heart-line" className={style.likesIcon} />
-            <span>{animation.likesCount}</span>
+            <span>
+              {animation ? (
+                animation.likesCount
+              ) : (
+                <span className="w-5 block">
+                  <SkeletonText fullWidth />
+                </span>
+              )}
+            </span>
           </div>
         </div>
         <a
-          href={`https://lottiefiles.com${animation.createdBy.username}`}
+          href={`https://lottiefiles.com${animation?.createdBy?.username}`}
           target="_blank"
           rel="noreferrer"
           className={style.author}
         >
-          <img
-            src={animation.createdBy.avatarUrl}
-            alt={animation.createdBy.username}
-            className={style.avatar}
-          />
+          {animation ? (
+            <img
+              src={animation.createdBy.avatarUrl}
+              alt={animation.createdBy.username}
+              className={style.avatar}
+            />
+          ) : (
+            <Skeleton className={style.avatar} />
+          )}
           <div className={style.authorName}>
-            {getFullName(
-              animation.createdBy.firstName,
-              animation.createdBy.lastName
+            {animation ? (
+              getFullName(
+                animation.createdBy.firstName,
+                animation.createdBy.lastName
+              )
+            ) : (
+              <span className="w-28 block">
+                <SkeletonText fullWidth />{" "}
+              </span>
             )}
           </div>
         </a>
