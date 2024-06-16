@@ -19,16 +19,22 @@ export default function useSocketActions() {
     }))
   );
 
+  const debouncedSocketPropUpdate = debounce(
+    { delay: 50 },
+    (key: string, value: any) => {
+      const socketMessage: SocketUpdatePropMessage = {
+        type: "updateProp",
+        path: key,
+        value: JSON.stringify(value),
+      };
+
+      sendMessage(JSON.stringify(socketMessage));
+    }
+  );
+
   function updatePropAndSocket(key: string, value: any) {
     updateProp(key, value);
-
-    const socketMessage: SocketUpdatePropMessage = {
-      type: "updateProp",
-      path: key,
-      value: JSON.stringify(value),
-    };
-
-    sendMessage(JSON.stringify(socketMessage));
+    debouncedSocketPropUpdate(key, value);
   }
 
   function deleteArrayItemAndUpdateSocket(key: string, index: number) {
@@ -44,7 +50,7 @@ export default function useSocketActions() {
   }
 
   return {
-    updateProp: debounce({ delay: 200 }, updatePropAndSocket),
-    deleteArrayItem: debounce({ delay: 200 }, deleteArrayItemAndUpdateSocket),
+    updateProp: updatePropAndSocket,
+    deleteArrayItem: deleteArrayItemAndUpdateSocket,
   };
 }
