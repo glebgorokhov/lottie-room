@@ -9,7 +9,6 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { WebSocketHook } from "react-use-websocket/dist/lib/types";
 import { useShallow } from "zustand/react/shallow";
 
-import { SocketMessage } from "../types";
 import Button from "../components/Button.tsx";
 import Logo from "../components/icons/Logo.tsx";
 import LoadingScreen from "../components/LoadingScreen.tsx";
@@ -24,6 +23,7 @@ import useAPI from "../hooks/useAPI.ts";
 import useMessagesFromSocket from "../hooks/useMessagesFromSocket.tsx";
 import useUpdatesFromSocket from "../hooks/useUpdatesFromSocket.tsx";
 import usePlaygroundStore from "../stores/playgroundStore.ts";
+import { SocketMessage } from "../types";
 
 export const socketContext = createContext<null | WebSocketHook<SocketMessage>>(
   null

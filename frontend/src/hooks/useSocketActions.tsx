@@ -2,12 +2,12 @@ import { debounce } from "radash";
 import { useContext } from "react";
 import { useShallow } from "zustand/react/shallow";
 
+import { socketContext } from "../routes/Playground.tsx";
+import usePlaygroundStore from "../stores/playgroundStore.ts";
 import {
   SocketDeleteArrayItemMessage,
   SocketUpdatePropMessage,
 } from "../types";
-import { socketContext } from "../routes/Playground.tsx";
-import usePlaygroundStore from "../stores/playgroundStore.ts";
 
 export default function useSocketActions() {
   const { sendMessage } = useContext(socketContext)!;
