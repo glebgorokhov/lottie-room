@@ -1,17 +1,28 @@
 {
   "version": 2,
+  "outputDirectory": "dist",
   "installCommand": "pnpm install",
   "buildCommand": "pnpm build",
+  "env": {
+    "POSTGRES_URL": "@POSTGRES_URL",
+    "POSTGRES_PRISMA_URL": "@POSTGRES_PRISMA_URL",
+    "POSTGRES_URL_NO_SSL": "@POSTGRES_URL_NO_SSL",
+    "POSTGRES_URL_NON_POOLING": "@POSTGRES_URL_NON_POOLING",
+    "POSTGRES_USER": "@POSTGRES_USER",
+    "POSTGRES_HOST": "@POSTGRES_HOST",
+    "POSTGRES_PASSWORD": "@POSTGRES_PASSWORD",
+    "POSTGRES_DATABASE": "@POSTGRES_DATABASE"
+  },
   "builds": [
     {
-      "src": "dist/backend/src/index.js",
+      "src": "backend/src/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/backend/src/index.js"
+      "dest": "backend/src/index.js"
     }
   ]
 }
