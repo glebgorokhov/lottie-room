@@ -1,6 +1,10 @@
 import { Icon } from "@iconify/react";
 import type { Layer } from "@lottiefiles/lottie-types";
 import clsx from "clsx";
+import { useShallow } from "zustand/react/shallow";
+
+import useShift from "../../hooks/useShift.tsx";
+import usePlaygroundStore from "../../stores/playgroundStore.ts";
 
 export type LayerType = Layer.Value & {
   layers?: LayerType[];
@@ -8,12 +12,17 @@ export type LayerType = Layer.Value & {
 
 type LayersProps = {
   layers: LayerType[];
+  path: string;
+  index?: number;
   level?: number;
+  className?: string;
 };
 
 type LayerProps = {
   layer: LayerType;
-  level?: number;
+  path: string;
+  index: number;
+  level: number;
 };
 
 type SquareButtonProps = {
@@ -37,34 +46,103 @@ function SquareButton({ icon, onClick, className }: SquareButtonProps) {
   );
 }
 
-function Layer({ layer, level = 0 }: LayerProps) {
-  function deleteLayer() {}
+function Layer({ layer, index, path, level }: LayerProps) {
+  const layerKey = `${path}.${index}`;
+  const shiftUsed = useShift();
+
+  const { deleteArrayItem, selectLayer, selectedLayers, clearSelectedLayers } =
+    usePlaygroundStore(
+      useShallow(
+        ({
+          deleteArrayItem,
+          selectLayer,
+          selectedLayers,
+          clearSelectedLayers,
+        }) => ({
+          deleteArrayItem,
+          selectLayer,
+          selectedLayers,
+          clearSelectedLayers,
+        })
+      )
+    );
+
+  function deleteLayer() {
+    selectedLayers
+      .filter((l) => l.startsWith(layerKey))
+      .forEach((l) => {
+        selectLayer(l);
+      });
+
+    deleteArrayItem(path, index);
+  }
+
+  function handleSelectLayer() {
+    if (!shiftUsed) {
+      clearSelectedLayers();
+      if (!selectedLayers.includes(layerKey)) {
+        selectLayer(layerKey);
+      }
+      return;
+    }
+
+    selectLayer(layerKey);
+  }
 
   return (
-    <div className="not-last:border-b border-t-border">
-      <div className="flex items-center gap-3 hover:text-t-text px-3 py-2 group">
+    <div className="select-none">
+      <div
+        className={clsx(
+          "flex items-center gap-3 px-3 py-1.5 group border border-transparent hover:border-t-text",
+          selectedLayers.includes(layerKey)
+            ? "theme-neutral-light-tint bg-t-bg text-t-text font-semibold"
+            : "hover:text-t-text"
+        )}
+        onClick={handleSelectLayer}
+      >
+        {Array(level)
+          .fill(null)
+          .map((_, i) => (
+            <div key={i} className="pl-1">
+              <div className="w-1 h-1 rounded-full bg-current opacity-50"></div>
+            </div>
+          ))}
         <div className="text-sm leading-relaxed flex-1 truncate">
           {layer.nm}
         </div>
         <div className="flex gap-1 shrink-0 group-hover:opacity-100 opacity-0">
-          <SquareButton icon="ri:close-line" onClick={() => {}} />
+          <SquareButton icon="ri:close-line" onClick={deleteLayer} />
         </div>
       </div>
 
       {!!layer.layers?.length && (
-        <div className="border-y border-l border-t-border ml-3 mb-3 rounded-l-lg overflow-hidden">
-          <Layers layers={layer.layers} level={level + 1} />
-        </div>
+        <Layers
+          layers={layer.layers}
+          path={path + "." + index + ".layers"}
+          index={index}
+          level={level + 1}
+        />
       )}
     </div>
   );
 }
 
-export default function Layers({ layers, level = 0 }: LayersProps) {
+export default function Layers({
+  layers,
+  path,
+  level = 0,
+  className,
+}: LayersProps) {
   return (
-    <div>
+    <div className={className}>
       {layers.map((layer, index) => (
-        <Layer key={level + "-" + index} layer={layer} level={level} />
+        <Layer
+          key={path + "." + index}
+          layer={layer}
+          path={path}
+          index={index}
+          level={level}
+        />
       ))}
     </div>
   );

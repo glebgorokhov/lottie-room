@@ -2,16 +2,17 @@ import clsx from "clsx";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import { useShallow } from "zustand/react/shallow";
 
-import type { Message } from "../../../types/messages.ts";
-import Button from "./Button.tsx";
+import type { Message } from "../../../../types/messages.ts";
+import usePlaygroundStore from "../../stores/playgroundStore.ts";
+import Button from "../Button.tsx";
 
-const ChatComponent = ({
-  initialMessages = [],
-}: {
-  initialMessages: Message[];
-}) => {
+const ChatComponent = () => {
   const { playgroundId } = useParams();
+  const initialMessages = usePlaygroundStore(
+    useShallow(({ messages }) => messages)
+  );
 
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
