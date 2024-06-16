@@ -4,7 +4,7 @@ This project allows Lottie users to play with some animation settings, see and d
 
 ## Live demo
 
-The link will be there...
+https://lottie-room-frontend.vercel.app/
 
 ## Core technologies
 
