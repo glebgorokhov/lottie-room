@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import clsx from "clsx";
 import { Link, useNavigate } from "react-router-dom";
 
-import { FeaturedAnimation } from "../../../types/featuredAnimations.ts";
+import { FeaturedAnimation } from "../types";
 import useAPI from "../hooks/useAPI.ts";
 import { getFullName } from "../utils/fullName.ts";
 import LottiePreviewByUrl from "./LottiePreviewByUrl.tsx";

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
-import { SocketMessage } from "../../../types/playgroundSocket.ts";
+import { SocketMessage } from "../types";
 import { socketContext } from "../routes/Playground.tsx";
 import usePlaygroundStore from "../stores/playgroundStore.ts";
 

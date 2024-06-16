@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e338a74-f6b5-4e2a-bc68-5ea7693a3ea8" name="Changes" comment="" />
+    <list default="true" id="4e338a74-f6b5-4e2a-bc68-5ea7693a3ea8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/controller/featuredAnimationsController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/controller/featuredAnimationsController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AnimationCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AnimationCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useMessagesFromSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useMessagesFromSocket.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useSocketActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useSocketActions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useUpdatesFromSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useUpdatesFromSocket.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/routes/Playground.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routes/Playground.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/stores/playgroundStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/stores/playgroundStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/featuredAnimations.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/messages.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/playground.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/playgroundSocket.ts" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,9 +30,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2hhRXsNeXvua8Z2mIQbFR7KX0pQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,25 +42,27 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/glebgorokhov/Projects/lottie-room/backend",
+    "last_opened_file_path": "/Users/glebgorokhov/Projects/lottie-room-fix/backend/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/glebgorokhov/Projects/lottie-room/backend/node_modules/typescript/lib",
+    "ts.external.directory.path": "/Users/glebgorokhov/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/241.17890.13/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/src" />
+      <recent name="$PROJECT_DIR$/frontend/src" />
       <recent name="$PROJECT_DIR$/backend" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.17011.90" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.17890.13" />
       </set>
     </attachedChunks>
   </component>
@@ -56,6 +75,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718044365989</updated>
       <workItem from="1718044367010" duration="662000" />
+      <workItem from="1718560222984" duration="161000" />
     </task>
     <servers />
   </component>

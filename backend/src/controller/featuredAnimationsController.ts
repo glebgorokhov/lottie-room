@@ -3,7 +3,7 @@ import client from "../graphql/client.js";
 import {
   FeaturedAnimationsListResponseData,
   FeaturedAnimation,
-} from "../../../types/featuredAnimations.js";
+} from "../types";
 
 const { gql } = require("@apollo/client");
 

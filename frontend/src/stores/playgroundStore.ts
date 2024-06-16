@@ -2,7 +2,7 @@ import type { Animation } from "@lottiefiles/lottie-types";
 import { get as radashGet, set as radashSet } from "radash";
 import { create } from "zustand";
 
-import type { Message } from "../../../types/messages.ts";
+import type { Message } from "../types";
 
 export type PlaygroundStoreState = {
   playgroundId: string;

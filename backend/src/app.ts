@@ -2,7 +2,7 @@ import fastify from "fastify";
 import router from "./router";
 import prismaPlugin from "./plugins/prisma";
 import fastifyWebsocket, { WebSocket } from "@fastify/websocket";
-import type { SocketMessage } from "../../types/playgroundSocket";
+import type { SocketMessage } from "./types";
 import { get, set } from "radash";
 
 const clients = new Map<string, Set<WebSocket>>();

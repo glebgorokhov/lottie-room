@@ -9,7 +9,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import { WebSocketHook } from "react-use-websocket/dist/lib/types";
 import { useShallow } from "zustand/react/shallow";
 
-import { SocketMessage } from "../../../types/playgroundSocket.ts";
+import { SocketMessage } from "../types";
 import Button from "../components/Button.tsx";
 import Logo from "../components/icons/Logo.tsx";
 import LoadingScreen from "../components/LoadingScreen.tsx";

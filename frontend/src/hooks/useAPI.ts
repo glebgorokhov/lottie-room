@@ -1,7 +1,7 @@
 import { Animation } from "@lottiefiles/lottie-types";
 
 import { FeaturedAnimationsListResponseData } from "../../../types/featuredAnimations.ts";
-import type { Playground } from "../../../types/playground.ts";
+import type { Playground } from "../types";
 import { getApiUrl } from "../utils/api.ts";
 
 export default function useAPI() {

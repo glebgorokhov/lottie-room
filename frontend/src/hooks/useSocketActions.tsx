@@ -5,7 +5,7 @@ import { useShallow } from "zustand/react/shallow";
 import {
   SocketDeleteArrayItemMessage,
   SocketUpdatePropMessage,
-} from "../../../types/playgroundSocket.ts";
+} from "../types";
 import { socketContext } from "../routes/Playground.tsx";
 import usePlaygroundStore from "../stores/playgroundStore.ts";
 
