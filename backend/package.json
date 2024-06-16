@@ -6,8 +6,9 @@
     "watch": "tsc --watch --preserveWatchOutput --pretty",
     "dev": "cross-env NODE_ENV=development nodemon",
     "format": "prettier --write \"src/**/*.ts\"",
-    "build": "rimraf dist && npx prisma generate && tsc",
-    "start": "node dist/index.js"
+    "build": "rimraf dist && prisma generate && tsc",
+    "start": "node dist/index.js",
+    "postinstall": "prisma generate"
   },
   "author": "Matschik <mathieu.schimmerling@protonmail.com>",
   "license": "MIT",
