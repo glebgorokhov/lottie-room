@@ -17,7 +17,6 @@ server.register(cors, {
   origin: true,
 });
 
-
 // Middleware: Router
 server.register(router);
 server.register(prismaPlugin);
