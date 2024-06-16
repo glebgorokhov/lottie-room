@@ -15,6 +15,7 @@
     "@apollo/client": "^3.10.4",
     "@fastify/websocket": "^10.0.1",
     "@prisma/client": "5.15.0",
+    "dotenv": "^16.4.5",
     "fastify": "^4.27.0",
     "graphql": "^16.8.1",
     "radash": "^12.1.0",
