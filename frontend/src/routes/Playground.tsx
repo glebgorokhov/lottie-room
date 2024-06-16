@@ -66,7 +66,7 @@ export default function PlaygroundLoader() {
   });
 
   const socket = useWebSocket<SocketMessage>(
-    `ws://localhost:3006/api/v1/playground/${playgroundId}/ws`
+    `${import.meta.env.VITE_WS_ENDPOINT}v1/playground/${playgroundId}/ws`
   );
 
   useEffect(() => {
