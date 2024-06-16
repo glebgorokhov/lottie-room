@@ -25,4 +25,4 @@ dist-ssr
 *.sw?
 
 .vercel
-now.json
+vercel.json
