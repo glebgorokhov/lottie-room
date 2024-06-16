@@ -23,4 +23,8 @@ export type SocketDeleteArrayItemMessage = {
   index: number;
 };
 
-export type SocketMessage = SocketUpdateMessage | SocketTextMessage | SocketUpdatePropMessage | SocketDeleteArrayItemMessage;
+export type SocketMessage =
+  | SocketUpdateMessage
+  | SocketTextMessage
+  | SocketUpdatePropMessage
+  | SocketDeleteArrayItemMessage;
