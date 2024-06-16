@@ -55,8 +55,8 @@ server.register(async function (fastify) {
             })
             .then((currentPlayground) => {
               let currentJSON = currentPlayground
-                ? JSON.parse(currentPlayground?.json)
-                : null;
+                ? JSON.parse(currentPlayground.json)
+                : undefined;
 
               if (currentJSON) {
                 currentJSON = set(
@@ -65,12 +65,10 @@ server.register(async function (fastify) {
                   JSON.parse(data.value),
                 );
 
-                console.log(data.path, JSON.parse(data.value));
-
                 prisma.playground
                   .update({
                     where: { id: playgroundId },
-                    data: { json: JSON.stringify(currentJSON) },
+                    data: { json: JSON.stringify(currentJSON, null, 0) },
                   })
                   .then(() => {});
               }
@@ -84,8 +82,8 @@ server.register(async function (fastify) {
             })
             .then((currentPlayground) => {
               let currentJSON = currentPlayground
-                ? JSON.parse(currentPlayground?.json)
-                : null;
+                ? JSON.parse(currentPlayground.json)
+                : undefined;
 
               if (currentJSON) {
                 currentJSON = set(
