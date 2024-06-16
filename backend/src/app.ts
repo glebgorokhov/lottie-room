@@ -4,11 +4,17 @@ import prismaPlugin from "./plugins/prisma";
 import fastifyWebsocket, { WebSocket } from "@fastify/websocket";
 import type { SocketMessage } from "./types";
 import { get, set } from "radash";
+import cors from "@fastify/cors";
 
 const clients = new Map<string, Set<WebSocket>>();
 
 const server = fastify({
   logger: true,
+});
+
+// CORS
+server.register(cors, {
+  origin: true,
 });
 
 // Middleware: Router
