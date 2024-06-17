@@ -33,4 +33,14 @@ https://lottie-room-frontend.vercel.app/
 
 ## Additional information
 
-It took around 25 hours to build the project.
+It took around 20 hours to build the project and 5 to deploy (yeah, I know)
+
+## Todos:
+
+- [ ] Support for editing gradients
+- [ ] Support for selecting shapes
+- [ ] Timestamps to socket events
+- [ ] History for JSON changes
+- [ ] Some kind of authentication
+- [ ] Display outlines for selected/hovered layers/shapes
+- [ ] Optimize socket event sending query
