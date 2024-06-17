@@ -33,4 +33,4 @@ https://lottie-room-frontend.vercel.app/
 
 ## Additional information
 
-It took around 20 hours to build the project.
+It took around 25 hours to build the project.
