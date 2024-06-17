@@ -2,7 +2,8 @@ import type { SocketMessage } from "../types";
 import { get, set } from "radash";
 import { FastifyInstance } from "fastify";
 import { WebSocket } from "@fastify/websocket";
-import {getPrefixedRoute} from "../router";
+import { getPrefixedRoute } from "../router";
+import fixLayerArrays from "../utils/fixLayerArrays";
 
 const clients = new Map<string, Set<WebSocket>>();
 
@@ -57,7 +58,7 @@ export default async function playgroundSocket(fastify: FastifyInstance) {
                 prisma.playground
                   .update({
                     where: { id: playgroundId },
-                    data: { json: JSON.stringify(currentJSON, null, 0) },
+                    data: { json: JSON.stringify(fixLayerArrays(currentJSON)) },
                   })
                   .then(() => {});
               }
@@ -86,7 +87,7 @@ export default async function playgroundSocket(fastify: FastifyInstance) {
                 prisma.playground
                   .update({
                     where: { id: playgroundId },
-                    data: { json: JSON.stringify(currentJSON) },
+                    data: { json: JSON.stringify(fixLayerArrays(currentJSON)) },
                   })
                   .then(() => {});
               }
