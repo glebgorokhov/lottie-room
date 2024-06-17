@@ -34,4 +34,7 @@ export default {
       addVariant("not-last", "&:not(:last-child)");
     }),
   ],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 };

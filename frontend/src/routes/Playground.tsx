@@ -138,6 +138,9 @@ export function Playground() {
     offlineTitle: "text-base heading text-t-text font-semibold",
     offlineText: "text-sm mt-1",
     offlineButton: "mt-3",
+    backLink:
+      "flex items-center gap-1.5 mt-2.5 transition-colors hover:text-t-text",
+    backIcon: "w-4 h-4",
   };
 
   return (
@@ -167,16 +170,13 @@ export function Playground() {
         <div className={clsx(style.card, "shrink-0")}>
           <div className={style.cardContent}>
             <div className="flex items-center justify-between">
-              <Logo className="h-6 text-t-text" />
+              <Logo className="h-5 lg:h-6 text-t-text" />
               <ToggleDarkMode className="w-5 h-5" />
             </div>
 
             {/* Back */}
-            <Link
-              to="/"
-              className="flex items-center gap-1.5 mt-2.5 transition-colors hover:text-t-text"
-            >
-              <Icon icon="tabler:arrow-left" className="w-4 h-4" />
+            <Link to="/" className={style.backLink}>
+              <Icon icon="tabler:arrow-left" className={style.backIcon} />
               <span>Back to Main Page</span>
             </Link>
 
