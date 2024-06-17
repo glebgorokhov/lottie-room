@@ -30,14 +30,12 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
         const animationJSON = (await response.json()) as Animation;
         const playgroundUrl = await openPlaygroundForData(animationJSON);
 
-        console.log(playgroundUrl);
-
         navigate(`/${playgroundUrl}`);
       },
     });
 
   const style = {
-    card: "text-t-text-light rounded-2xl group",
+    card: "text-t-text-light rounded-2xl group transition-opacity",
     imageWrapper:
       "block pb-[100%] w-full relative h-0 border border-t-border rounded-[0.875rem] overflow-hidden theme-neutral-light bg-t-bg transition-[border-color] group-hover:border-t-text",
     image: "absolute inset-px",
@@ -50,6 +48,8 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
     authorName: "truncate",
     likes: "flex text-sm items-center gap-1",
     likesIcon: "w-3 lg:w-4 h-3 lg:h-4",
+    loaderIcon:
+      "text-t-bg absolute inset-0 m-auto w-10 h-10 z-[1] theme-brand-tint animate-spin",
   };
 
   return (
@@ -70,6 +70,10 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
           <LottiePreviewByUrl url={animation.jsonUrl} className={style.image} />
         ) : (
           <Icon icon="carbon:no-image" className={style.noImage} />
+        )}
+
+        {playgroundIsOpening && (
+          <Icon icon="ri:loader-4-line" className={style.loaderIcon} />
         )}
       </button>
       <div className={style.content}>
