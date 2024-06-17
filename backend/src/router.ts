@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import featuredAnimationsController from "./controller/featuredAnimationsController";
 import playgroundController from "./controller/playgroundController";
 
-function getPrefixedRoute(url: string, version = 1) {
+export function getPrefixedRoute(url: string, version = 1) {
   return `/api/v${version}/${url}`;
 }
 

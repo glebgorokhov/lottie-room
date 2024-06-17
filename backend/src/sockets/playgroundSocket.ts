@@ -2,12 +2,13 @@ import type { SocketMessage } from "../types";
 import { get, set } from "radash";
 import { FastifyInstance } from "fastify";
 import { WebSocket } from "@fastify/websocket";
+import {getPrefixedRoute} from "../router";
 
 const clients = new Map<string, Set<WebSocket>>();
 
 export default async function playgroundSocket(fastify: FastifyInstance) {
   fastify.get(
-    "/api/v1/playground/:playgroundId/ws",
+    getPrefixedRoute("playground/:playgroundId/ws"),
     { websocket: true },
     async (socket, req) => {
       const { prisma } = req.server;
