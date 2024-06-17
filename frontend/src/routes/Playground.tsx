@@ -227,7 +227,10 @@ export function Playground() {
         {/* Layer properties */}
         {selectedLayers.length === 1 && (
           <div
-            className={clsx(style.card, "shrink-0 max-h-[40vh] overflow-auto")}
+            className={clsx(
+              style.card,
+              "shrink-0 lg:max-h-[40vh] overflow-auto"
+            )}
           >
             <div className={style.cardTitle}>Selected layer</div>
             <div className={style.cardContent}>

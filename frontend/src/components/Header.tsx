@@ -8,7 +8,7 @@ export default function Header() {
       "py-4 lg:py-5 border-b border-t-border theme-neutral-light dark:theme-neutral bg-t-bg text-t-text-light",
     container: "flex items-center justify-between",
     logo: "h-5 lg:h-7 text-t-text",
-    darkModeButton: "w-6 h-6",
+    darkModeButton: "w-4 h-4 lg:w-6 lg:h-6",
   };
 
   return (
