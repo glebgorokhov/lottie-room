@@ -43,13 +43,13 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
     image: "absolute inset-px",
     noImage: "w-10 h-10 m-auto inset-0 absolute opacity-50",
     content: "mt-2.5",
-    name: "block text-base group-hover:text-t-text transition-colors flex-1",
+    name: "block text-sm lg:text-base group-hover:text-t-text transition-colors flex-1",
     author:
-      "flex items-center gap-2 text-sm mt-1.5 flex-1 overflow-hidden transition-colors hover:text-t-text",
+      "flex items-center gap-2 text-xs lg:text-sm mt-1.5 flex-1 overflow-hidden transition-colors hover:text-t-text",
     avatar: "w-4 h-4 rounded-full shrink-0",
     authorName: "truncate",
-    likes: "flex items-center gap-1",
-    likesIcon: "w-4 h-4",
+    likes: "flex text-sm items-center gap-1",
+    likesIcon: "w-3 lg:w-4 h-3 lg:h-4",
   };
 
   return (

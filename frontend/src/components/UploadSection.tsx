@@ -24,50 +24,51 @@ export default function UploadSection() {
 
       const json = (await parseJsonFile(variables[0])) as Animation;
       const playgroundUrl = await openPlaygroundForData(json);
-
-      console.log(playgroundUrl);
-
       navigate(`/${playgroundUrl}`);
     },
   });
 
+  const style = {
+    title: "text-4xl lg:text-8xl font-semibold text-t-text",
+    description: "text-base lg:text-xl mt-3 lg:mt-5",
+    buttonWrapper: "flex flex-wrap items-center gap-4 lg:gap-6 mt-4 lg:mt-6",
+    error:
+      "text-sm theme-error text-t-text bg-t-bg px-3 leading-relaxed py-1 rounded-xl",
+  };
+
   return (
-    <div className="">
-      <div>
-        <h1 className="text-8xl font-semibold text-t-text">
-          Free Playground for Your Animations
-        </h1>
-        <p className="text-xl mt-5">
-          Upload your JSON file, play with settings and discuss the changes with
-          the team
-        </p>
+    <div>
+      <h1 className={style.title}>Free Playground for Your Animations</h1>
+      <p className={style.description}>
+        Upload your JSON file, play with settings and discuss the changes with
+        the team
+      </p>
 
-        <div className="flex items-center gap-6 mt-6">
-          <Button
-            type="button"
-            title="Upload the animation JSON"
-            roundedClass="rounded-2xl"
-            themeClass="theme-brand-tint hover:theme-brand"
-            size={12}
-            preIcon="ri:upload-line"
-            loading={playgroundIsOpening}
-            onClick={() => input.current?.click()}
-          />
+      <div className={style.buttonWrapper}>
+        <Button
+          type="button"
+          title="Upload the animation JSON"
+          roundedClass="rounded-2xl"
+          themeClass="theme-brand-tint hover:theme-brand"
+          size={12}
+          preIcon="ri:upload-line"
+          loading={playgroundIsOpening}
+          onClick={() => input.current?.click()}
+        />
 
-          <input
-            type="file"
-            className="hidden"
-            onChange={(e) => openPlaygroundForFile(e.target.files)}
-            ref={input}
-            accept="application/json"
-          />
+        <input
+          type="file"
+          className="hidden"
+          onChange={(e) => openPlaygroundForFile(e.target.files)}
+          ref={input}
+          accept="application/json"
+        />
 
-          {error && (
-            <div className="text-sm theme-error text-t-text bg-t-bg px-3 leading-relaxed py-1 rounded-xl">
-              We couldn&apos;t parse your JSON. Please try again
-            </div>
-          )}
-        </div>
+        {!!error && (
+          <div className={style.error}>
+            We couldn&apos;t parse your JSON. Please try again
+          </div>
+        )}
       </div>
     </div>
   );
