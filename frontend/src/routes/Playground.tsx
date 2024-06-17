@@ -2,8 +2,7 @@ import { Icon } from "@iconify/react";
 import { Animation } from "@lottiefiles/lottie-types";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-import { createContext, useContext, useEffect, useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { createContext, useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import { WebSocketHook } from "react-use-websocket/dist/lib/types";
@@ -18,6 +17,7 @@ import LayerActions from "../components/playground/LayerActions.tsx";
 import Layers from "../components/playground/Layers.tsx";
 import MultipleLayerActions from "../components/playground/MultipleLayerActions.tsx";
 import Settings from "../components/playground/Settings.tsx";
+import PlaygroundCopyLink from "../components/PlaygroundCopyLink.tsx";
 import ToggleDarkMode from "../components/ToggleDarkMode.tsx";
 import ErrorPage from "../ErrorPage.tsx";
 import useAPI from "../hooks/useAPI.ts";
@@ -116,8 +116,6 @@ export function Playground() {
     }))
   );
 
-  const [copied, setCopied] = useState(false);
-
   const style = {
     layout:
       "overflow-hidden flex flex-col lg:h-screen lg:grid lg:grid-cols-[18rem,1fr,18rem]",
@@ -127,8 +125,15 @@ export function Playground() {
       "text-t-text text-base border-b border-t-border px-3 py-2 heading sticky top-0 bg-t-bg z-[1]",
     cardContent: "p-3 w-full",
     animationCol: "order-[-1] h-[100vw] lg:order-none lg:h-auto p-4",
-    layersCard: "max-h-[15rem] lg:max-h-none",
-    discussionCard: "",
+    layersCard: "max-h-[15rem] lg:max-h-none flex-1",
+    layersCardHeader: "flex items-center justify-between gap-3",
+    layersCardHelper: "hidden lg:block text-xs text-t-text-light font-normal",
+    layers: "py-1",
+    noLayersText: "text-t-text-light p-3 text-sm",
+    discussionCard: "h-[24rem] lg:h-auto lg:flex-grow",
+    settingsCard: "shrink-0",
+    multipleLayerActionsCard: "shrink-0 max-h-[50vh] overflow-auto",
+    selectedLayerActionsCard: "shrink-0 lg:max-h-[40vh] overflow-auto",
     offlineCard: "shrink-0 !theme-error !border-0",
     offlineTitle: "text-base heading text-t-text font-semibold",
     offlineText: "text-sm mt-1",
@@ -174,46 +179,30 @@ export function Playground() {
               <Icon icon="tabler:arrow-left" className="w-4 h-4" />
               <span>Back to Main Page</span>
             </Link>
+
             {/* Copy */}
-            <CopyToClipboard
-              text={location.href}
-              onCopy={() => setCopied(true)}
-            >
-              <div
-                className={clsx(
-                  "flex items-center gap-1.5 mt-1 -mb-1 transition-[color] cursor-pointer",
-                  {
-                    "theme-success text-t-bg hover:theme-success-tint": copied,
-                    "hover:text-t-text": !copied,
-                  }
-                )}
-              >
-                <Icon
-                  icon={copied ? "ri:check-line" : "ri:link"}
-                  className="w-4 h-4"
-                />
-                <span>{copied ? "Link copied!" : "Copy link"}</span>
-              </div>
-            </CopyToClipboard>
+            <PlaygroundCopyLink />
           </div>
         </div>
 
         {/* Layers */}
-        <div className={clsx(style.card, style.layersCard, "flex-1")}>
+        <div className={clsx(style.card, style.layersCard)}>
           <div className={style.cardTitle}>
-            <div className="flex items-center justify-between gap-3">
+            <div className={style.layersCardHeader}>
               <div>Layers</div>
-              <div className="hidden lg:block text-xs text-t-text-light font-normal">
+              <div className={style.layersCardHelper}>
                 Shift + Click for multi-select
               </div>
             </div>
           </div>
           {json?.layers?.length ? (
-            <Layers layers={json.layers} path="layers" className="py-1" />
+            <Layers
+              layers={json.layers}
+              path="layers"
+              className={style.layers}
+            />
           ) : (
-            <div className="text-t-text-light p-3 text-sm">
-              No layers available.
-            </div>
+            <div className={style.noLayersText}>No layers available.</div>
           )}
         </div>
       </div>
@@ -226,12 +215,7 @@ export function Playground() {
       <div className={style.col}>
         {/* Layer properties */}
         {selectedLayers.length === 1 && (
-          <div
-            className={clsx(
-              style.card,
-              "shrink-0 lg:max-h-[40vh] overflow-auto"
-            )}
-          >
+          <div className={clsx(style.card, style.selectedLayerActionsCard)}>
             <div className={style.cardTitle}>Selected layer</div>
             <div className={style.cardContent}>
               <LayerActions layerKey={selectedLayers[0]} />
@@ -241,9 +225,7 @@ export function Playground() {
 
         {/* Multiple selection */}
         {selectedLayers.length > 1 && (
-          <div
-            className={clsx(style.card, "shrink-0 max-h-[50vh] overflow-auto")}
-          >
+          <div className={clsx(style.card, style.multipleLayerActionsCard)}>
             <div className={style.cardTitle}>
               Selected layers ({selectedLayers.length})
             </div>
@@ -254,7 +236,7 @@ export function Playground() {
         )}
 
         {/* Settings */}
-        <div className={clsx(style.card, "shrink-0")}>
+        <div className={clsx(style.card, style.settingsCard)}>
           <div className={style.cardTitle}>Settings</div>
           <div className={style.cardContent}>
             <Settings />
@@ -262,7 +244,7 @@ export function Playground() {
         </div>
 
         {/* Discussion */}
-        <div className={clsx(style.card, "h-[24rem] lg:h-auto lg:flex-grow")}>
+        <div className={clsx(style.card, style.discussionCard)}>
           <div className={style.cardTitle}>Discussion</div>
           <ChatComponent />
         </div>
