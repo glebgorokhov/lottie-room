@@ -1,3 +1,6 @@
+<img src="./logo_light.svg#gh-light-mode-only" alt="logo" width="200" />
+<img src="./logo_dark.svg#gh-dark-mode-only" alt="logo" width="200" />
+
 # Lottie Room
 
 This project allows Lottie users to play with some animation settings, see and discuss changes made by any room visitor in the realtime.
