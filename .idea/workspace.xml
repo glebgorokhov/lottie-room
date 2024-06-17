@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e338a74-f6b5-4e2a-bc68-5ea7693a3ea8" name="Changes" comment="" />
+    <list default="true" id="4e338a74-f6b5-4e2a-bc68-5ea7693a3ea8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +34,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/glebgorokhov/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/241.17890.13/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/Users/glebgorokhov/Projects/lottie-room-fix/backend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -59,7 +62,7 @@
       <updated>1718044365989</updated>
       <workItem from="1718044367010" duration="662000" />
       <workItem from="1718560222984" duration="161000" />
-      <workItem from="1718605120819" duration="61000" />
+      <workItem from="1718605120819" duration="316000" />
     </task>
     <servers />
   </component>
