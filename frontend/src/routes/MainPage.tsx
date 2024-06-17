@@ -44,19 +44,20 @@ export default function MainPage() {
               .map((_n, i) => <AnimationCard animation={null} key={i} />)}
 
           {/* Loading finished */}
-          {data ? (
-            data?.pages.map((page, index) => (
-              <Fragment key={index}>
-                {page.animations.map((animation) => (
-                  <AnimationCard key={animation.id} animation={animation} />
-                ))}
-              </Fragment>
-            ))
-          ) : (
-            <div className="rounded-2xl col-span-4 p-6 text-center text-base border border-t-border">
-              Sorry, we couldn&apos;t fetch featured animations.
-            </div>
-          )}
+          {isFetched &&
+            (data ? (
+              data?.pages.map((page, index) => (
+                <Fragment key={index}>
+                  {page.animations.map((animation) => (
+                    <AnimationCard key={animation.id} animation={animation} />
+                  ))}
+                </Fragment>
+              ))
+            ) : (
+              <div className="rounded-2xl col-span-4 p-6 text-center text-base border border-t-border">
+                Sorry, we couldn&apos;t fetch featured animations.
+              </div>
+            ))}
         </div>
 
         {/* Show more */}
