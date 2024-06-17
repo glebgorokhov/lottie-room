@@ -59,6 +59,7 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
         "pointer-events-none": !animation,
       })}
     >
+      {/* Preview */}
       <button
         type="button"
         className={style.imageWrapper}
@@ -76,8 +77,10 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
           <Icon icon="ri:loader-4-line" className={style.loaderIcon} />
         )}
       </button>
+
       <div className={style.content}>
         <div className="flex items-start justify-between gap-4">
+          {/* Animation name */}
           <Link to={`/lottie/${animation?.id}`} className={style.name}>
             {animation ? (
               animation.name
@@ -87,6 +90,8 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
               </div>
             )}
           </Link>
+
+          {/* Likes */}
           <div className={style.likes}>
             <Icon icon="ri:heart-line" className={style.likesIcon} />
             <span>
@@ -100,6 +105,8 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
             </span>
           </div>
         </div>
+
+        {/* Author */}
         <a
           href={`https://lottiefiles.com${animation?.createdBy?.username}`}
           target="_blank"
