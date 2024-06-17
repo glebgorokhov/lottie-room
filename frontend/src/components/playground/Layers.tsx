@@ -89,7 +89,7 @@ function Layer({ layer, index, path, level }: LayerProps) {
         className={clsx(
           "flex items-center gap-3 px-3 py-1.5 group border border-transparent hover:border-t-text",
           selectedLayers.includes(layerKey)
-            ? "theme-neutral-light-tint bg-t-bg text-t-text font-semibold"
+            ? "theme-neutral-light-tint dark:theme-neutral-tint bg-t-bg text-t-text font-semibold"
             : "hover:text-t-text"
         )}
         onClick={handleSelectLayer}

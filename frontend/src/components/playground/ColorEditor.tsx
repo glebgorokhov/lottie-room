@@ -37,7 +37,7 @@ export default function ColorEditor({ color, colorPath }: ColorEditorProps) {
             backgroundColor: `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`,
           }}
         >
-          <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/10 bg-gradient-to-t from-black/5 to-black/0 group-hover:ring-black/50"></div>
+          <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/10 dark:ring-white/10 bg-gradient-to-t from-black/5 dark:from-white/0 to-black/0 dark:to-white/5 group-hover:ring-black/50"></div>
         </div>
       </PopoverTrigger>
 

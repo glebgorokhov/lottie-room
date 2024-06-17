@@ -18,6 +18,7 @@ import LayerActions from "../components/playground/LayerActions.tsx";
 import Layers from "../components/playground/Layers.tsx";
 import MultipleLayerActions from "../components/playground/MultipleLayerActions.tsx";
 import Settings from "../components/playground/Settings.tsx";
+import ToggleDarkMode from "../components/ToggleDarkMode.tsx";
 import ErrorPage from "../ErrorPage.tsx";
 import useAPI from "../hooks/useAPI.ts";
 import useMessagesFromSocket from "../hooks/useMessagesFromSocket.tsx";
@@ -121,7 +122,7 @@ export function Playground() {
     layout:
       "overflow-hidden flex flex-col lg:h-screen lg:grid lg:grid-cols-[18rem,1fr,18rem]",
     col: "flex flex-col px-3 lg:p-3 last:mt-3 lg:last:mt-0 last:pb-3 gap-3 flex-1 overflow-hidden",
-    card: "theme-neutral-light flex flex-col bg-t-bg text-t-text-light border border-t-border rounded-2xl overflow-auto relative shadow-sm",
+    card: "theme-neutral-light dark:theme-neutral flex flex-col bg-t-bg text-t-text-light border border-t-border rounded-2xl overflow-auto relative shadow-sm",
     cardTitle:
       "text-t-text text-base border-b border-t-border px-3 py-2 heading sticky top-0 bg-t-bg z-[1]",
     cardContent: "p-3 w-full",
@@ -160,7 +161,11 @@ export function Playground() {
         {/* Header */}
         <div className={clsx(style.card, "shrink-0")}>
           <div className={style.cardContent}>
-            <Logo className="h-6 text-t-text" />
+            <div className="flex items-center justify-between">
+              <Logo className="h-6 text-t-text" />
+              <ToggleDarkMode className="w-5 h-5" />
+            </div>
+
             {/* Back */}
             <Link
               to="/"

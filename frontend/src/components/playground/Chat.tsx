@@ -55,7 +55,7 @@ const ChatComponent = () => {
     messagesWrapper:
       "mt-auto w-full flex flex-col items-start gap-3 justify-end",
     message:
-      "theme-neutral-light-tint bg-t-bg text-t-text-light border border-t-border rounded-xl px-2.5 py-1.5",
+      "theme-neutral-light-tint dark:theme-neutral-tint bg-t-bg text-t-text-light border border-t-border rounded-xl px-2.5 py-1.5",
     input:
       "flex-1 h-10 w-full appearance-none min-w-0 border border-t-border text-t-text placeholder-t-text-light rounded-xl text-sm px-3",
     messageAuthor: "text-sm leading-normal",

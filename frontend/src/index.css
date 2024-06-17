@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer utilities {
+  .dark {
+    color-scheme: dark;
+  }
+
   /* Neutral */
   .theme-neutral {
     --color-bg: 11 13 7;
@@ -13,11 +17,26 @@
     --color-border: 72 75 67;
   }
 
+  .dark .theme-neutral {
+    --color-bg: 0 0 0;
+    --color-text: 220 220 220;
+    --color-text-light: 150 150 150;
+    --color-border: 50 50 50;
+  }
+
+  /* Neutral Tint */
   .theme-neutral-tint {
     --color-bg: 34 35 31;
     --color-text: 255 255 255;
     --color-text-light: 170 174 162;
     --color-border: 83 86 78;
+  }
+
+  .dark .theme-neutral-tint {
+    --color-bg: 20 20 20;
+    --color-text: 220 220 220;
+    --color-text-light: 150 150 150;
+    --color-border: 50 50 50;
   }
 
   /* Neutral Light */
