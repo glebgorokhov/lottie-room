@@ -108,9 +108,8 @@ export function Playground() {
   useMessagesFromSocket();
   useUpdatesFromSocket();
 
-  const { initialJSON, json, selectedLayers } = usePlaygroundStore(
-    useShallow(({ initialJSON, json, selectedLayers }) => ({
-      initialJSON,
+  const { json, selectedLayers } = usePlaygroundStore(
+    useShallow(({ json, selectedLayers }) => ({
       json,
       selectedLayers,
     }))
@@ -119,33 +118,31 @@ export function Playground() {
   const [copied, setCopied] = useState(false);
 
   const style = {
-    col: "flex flex-col p-3 gap-3 flex-1 overflow-hidden",
+    layout:
+      "overflow-hidden flex flex-col lg:h-screen lg:grid lg:grid-cols-[18rem,1fr,18rem]",
+    col: "flex flex-col px-3 lg:p-3 last:mt-3 lg:last:mt-0 last:pb-3 gap-3 flex-1 overflow-hidden",
     card: "theme-neutral-light flex flex-col bg-t-bg text-t-text-light border border-t-border rounded-2xl overflow-auto relative shadow-sm",
     cardTitle:
       "text-t-text text-base border-b border-t-border px-3 py-2 heading sticky top-0 bg-t-bg z-[1]",
     cardContent: "p-3 w-full",
-    animationCol: "p-4",
+    animationCol: "order-[-1] h-[100vw] lg:order-none lg:h-auto p-4",
+    layersCard: "max-h-[15rem] lg:max-h-none",
+    discussionCard: "",
+    offlineCard: "shrink-0 !theme-error !border-0",
+    offlineTitle: "text-base heading text-t-text font-semibold",
+    offlineText: "text-sm mt-1",
+    offlineButton: "mt-3",
   };
 
-  useEffect(() => {
-    console.log("Original json", initialJSON);
-  }, [initialJSON]);
-
-  useEffect(() => {
-    console.log("Current json", json);
-  }, [json]);
-
   return (
-    <div className="overflow-hidden h-screen grid grid-cols-[18rem,1fr,18rem]">
+    <div className={style.layout}>
       <div className={style.col}>
         {/* Offline */}
         {readyState === ReadyState.CLOSED && (
-          <div className={clsx(style.card, "shrink-0 !theme-error !border-0")}>
+          <div className={clsx(style.card, style.offlineCard)}>
             <div className={style.cardContent}>
-              <div className="text-base heading text-t-text font-semibold">
-                You are offline
-              </div>
-              <div className="text-sm mt-1">
+              <div className={style.offlineTitle}>You are offline</div>
+              <div className={style.offlineText}>
                 Connection has been closed. Please refresh your page.
               </div>
               <Button
@@ -154,7 +151,7 @@ export function Playground() {
                 preIcon="ri:refresh-line"
                 roundedClass="rounded-xl"
                 themeClass="theme-error-tint hover:theme-neutral-light"
-                className="mt-3"
+                className={style.offlineButton}
               />
             </div>
           </div>
@@ -195,11 +192,13 @@ export function Playground() {
             </CopyToClipboard>
           </div>
         </div>
-        <div className={clsx(style.card, "flex-1")}>
+
+        {/* Layers */}
+        <div className={clsx(style.card, style.layersCard, "flex-1")}>
           <div className={style.cardTitle}>
             <div className="flex items-center justify-between gap-3">
               <div>Layers</div>
-              <div className="text-xs text-t-text-light font-normal">
+              <div className="hidden lg:block text-xs text-t-text-light font-normal">
                 Shift + Click for multi-select
               </div>
             </div>
@@ -255,7 +254,7 @@ export function Playground() {
         </div>
 
         {/* Discussion */}
-        <div className={clsx(style.card, "flex-grow")}>
+        <div className={clsx(style.card, "h-[24rem] lg:h-auto lg:flex-grow")}>
           <div className={style.cardTitle}>Discussion</div>
           <ChatComponent />
         </div>
