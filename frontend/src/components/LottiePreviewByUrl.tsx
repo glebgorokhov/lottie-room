@@ -35,7 +35,12 @@ export default function LottiePreviewByUrl({
   }
 
   if (!data) {
-    return "Oh shit";
+    return (
+      <Icon
+        icon="carbon:no-image"
+        className="w-10 h-10 m-auto absolute inset-0 opacity-50"
+      />
+    );
   }
 
   return <Lottie animationData={data} loop={true} className={className} />;
