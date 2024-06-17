@@ -49,7 +49,7 @@ export default function AnimationCard({ animation }: AnimationCardProps) {
     likes: "flex text-sm items-center gap-1",
     likesIcon: "w-3 lg:w-4 h-3 lg:h-4",
     loaderIcon:
-      "text-t-bg absolute inset-0 m-auto w-10 h-10 z-[1] theme-brand-tint animate-spin",
+      "text-t-text absolute inset-0 m-auto w-10 h-10 z-[1] animate-spin",
   };
 
   return (
