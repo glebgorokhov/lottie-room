@@ -5,7 +5,7 @@
 
 This project allows Lottie users to play with some animation settings, see and discuss changes made by any room visitor in the realtime.
 
-It had been done for [Lottie Room's assessment for the Senior Front-end Engineer role](https://github.com/glebgorokhov/lottie-room/blob/main/lottie_room_assessment.pdf).
+It was done for [Lottie Room's assessment for the Senior Front-end Engineer role](https://github.com/glebgorokhov/lottie-room/blob/main/lottie_room_assessment.pdf).
 
 ## Live demo
 
